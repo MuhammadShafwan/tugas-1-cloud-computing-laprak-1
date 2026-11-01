@@ -1,257 +1,465 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Website profil sederhana untuk praktikum Cloud Computing.">
-  <title>My Profile | Static Web</title>
+  <title>RuangKarya | Digital Portfolio</title>
+
   <style>
     :root {
-      --primary: #093d31;
-      --primary-light: #e8f1ed;
-      --text: #202923;
-      --muted: #64716a;
+      --primary: #6254dc;
+      --dark: #211b50;
+      --accent: #ffb86b;
+      --text: #20243a;
+      --muted: #73788d;
+      --background: #f6f7fc;
       --white: #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--background);
       color: var(--text);
-      background: #f7f9f8;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .container {
-      width: min(1100px, 90%);
-      margin: 0 auto;
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
     }
 
+    /* NAVBAR */
     header {
-      background: var(--white);
-      border-bottom: 1px solid #e5ebe7;
+      background: white;
+      border-bottom: 1px solid #e8e9f2;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
     }
 
     .navbar {
-      min-height: 72px;
+      min-height: 75px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
     }
 
-    .brand {
-      color: var(--primary);
-      font-size: 1.25rem;
+    .logo {
+      font-size: 24px;
       font-weight: 800;
+      color: var(--primary);
       text-decoration: none;
-      letter-spacing: .3px;
     }
 
-    nav { display: flex; gap: 26px; }
+    .logo span {
+      color: var(--dark);
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
 
     nav a {
-      color: var(--text);
       text-decoration: none;
-      font-size: .95rem;
+      color: var(--muted);
       font-weight: 600;
+      transition: .3s;
     }
 
-    nav a:hover { color: #16805f; }
+    nav a:hover {
+      color: var(--primary);
+    }
 
+    /* HERO */
     .hero {
-      background: linear-gradient(135deg, var(--primary), #17634d);
-      color: var(--white);
-      padding: 105px 0 110px;
-      text-align: center;
+      padding: 100px 0;
+      background: var(--white);
     }
 
-    .eyebrow {
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .badge {
       display: inline-block;
-      padding: 7px 14px;
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: 999px;
-      font-size: .85rem;
+      padding: 7px 16px;
+      background: #eeecff;
+      color: var(--primary);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
       margin-bottom: 22px;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-size: clamp(40px, 6vw, 65px);
       line-height: 1.15;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
     }
 
     .hero p {
-      max-width: 650px;
-      margin: 0 auto 30px;
-      color: #e1eee8;
-      font-size: 1.08rem;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 30px;
     }
 
     .button {
       display: inline-block;
-      background: var(--white);
-      color: var(--primary);
-      padding: 12px 23px;
-      border-radius: 8px;
-      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 9px;
+      background: var(--primary);
+      color: white;
       text-decoration: none;
-      transition: transform .2s ease, box-shadow .2s ease;
+      font-weight: 700;
+      transition: .3s;
     }
 
     .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.15);
+      background: var(--dark);
+      transform: translateY(-3px);
     }
 
-    section { padding: 76px 0; }
-
-    .section-title {
-      text-align: center;
+    .button-outline {
+      background: transparent;
+      border: 1px solid var(--primary);
       color: var(--primary);
-      font-size: 2rem;
-      margin-bottom: 14px;
+      margin-left: 10px;
     }
 
-    .section-intro {
+    .button-outline:hover {
+      color: white;
+    }
+
+    /* PROFILE CARD */
+    .profile-card {
+      background: linear-gradient(145deg, #7568ed, #4032a8);
+      padding: 35px;
+      border-radius: 25px;
+      color: white;
+      box-shadow: 0 20px 45px rgba(98,84,220,.2);
+    }
+
+    .profile-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 25px;
+      background: rgba(255,255,255,.17);
+      display: grid;
+      place-items: center;
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .profile-card small {
+      color: #ddd9ff;
+    }
+
+    .profile-card h2 {
+      font-size: 27px;
+      margin: 8px 0;
+    }
+
+    .profile-card p {
+      color: #eeeaff;
+      font-size: 15px;
+    }
+
+    /* ABOUT */
+    section {
+      padding: 85px 0;
+    }
+
+    .section-heading {
       text-align: center;
-      color: var(--muted);
       max-width: 650px;
-      margin: 0 auto 38px;
+      margin: 0 auto 45px;
+    }
+
+    .section-heading span {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .section-heading h2 {
+      font-size: 36px;
+      margin: 8px 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
     }
 
     .about-card {
-      max-width: 800px;
-      margin: 0 auto;
-      background: var(--white);
-      padding: 34px;
-      border: 1px solid #e5ebe7;
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(9,61,49,.05);
-      text-align: center;
+      background: white;
+      border: 1px solid #e8e9f2;
+      border-radius: 17px;
+      padding: 32px;
+      transition: .3s;
     }
 
-    .about-card p { color: var(--muted); }
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(35,30,80,.07);
+    }
 
-    .skills {
+    .about-card h3 {
+      margin-bottom: 15px;
+      font-size: 21px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+    }
+
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .skill {
-      background: var(--primary-light);
+    .tags span {
+      background: #eeecff;
       color: var(--primary);
-      border-radius: 999px;
-      padding: 8px 15px;
-      font-size: .9rem;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 700;
     }
 
+    /* CONTACT */
     .contact {
-      background: var(--primary-light);
+      background: var(--dark);
+      color: white;
       text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 38px;
+      margin: 12px 0;
     }
 
     .contact p {
-      color: var(--muted);
-      margin-bottom: 22px;
+      color: #d2cfee;
+      max-width: 580px;
+      margin: 0 auto 25px;
     }
 
     .contact .button {
-      background: var(--primary);
-      color: var(--white);
+      background: var(--accent);
+      color: var(--dark);
     }
 
+    .contact .button:hover {
+      background: white;
+    }
+
+    /* FOOTER */
     footer {
-      background: #062b23;
-      color: #dce9e3;
+      background: #17133d;
+      color: #bcb9d3;
       text-align: center;
-      padding: 22px 0;
-      font-size: .9rem;
+      padding: 23px;
+      font-size: 14px;
     }
 
-    @media (max-width: 600px) {
-      .navbar { flex-direction: column; justify-content: center; padding: 16px 0; gap: 12px; }
-      nav { gap: 18px; }
-      .hero { padding: 78px 0 84px; }
-      section { padding: 58px 0; }
-      .about-card { padding: 25px 20px; }
+    /* RESPONSIVE */
+    @media (max-width: 760px) {
+      .hero-content,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 70px 0;
+      }
+
+      .profile-card {
+        max-width: 450px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .navbar {
+        flex-direction: column;
+        padding: 15px 0;
+        gap: 12px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .button-outline {
+        margin: 12px 0 0;
+      }
+
+      .section-heading h2 {
+        font-size: 29px;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <div class="container navbar">
-      <a class="brand" href="#home">MY PROFILE</a>
-      <nav aria-label="Navigasi utama">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+      <a href="#home" class="logo">Ruang<span>Karya.</span></a>
+
+      <nav>
+        <a href="#home">Beranda</a>
+        <a href="#about">Tentang</a>
+        <a href="#contact">Kontak</a>
       </nav>
     </div>
   </header>
 
   <main>
+
     <section class="hero" id="home">
-      <div class="container">
-        <span class="eyebrow">Static Website · Cloud Computing</span>
-        <h1>Welcome to My Website</h1>
-        <p>
-          Halo! Ini adalah website statis sederhana yang dibuat menggunakan
-          HTML dan CSS, kemudian dipublikasikan melalui platform Vercel.
-        </p>
-        <a class="button" href="#about">Jelajahi Profil</a>
+      <div class="container hero-content">
+
+        <div>
+          <span class="badge">PERSONAL PORTFOLIO</span>
+
+          <h1>
+            Membangun Ide Menjadi
+            <span>Karya Digital.</span>
+          </h1>
+
+          <p>
+            Selamat datang di RuangKarya. Sebuah website yang
+            mempertemukan kreativitas, teknologi, dan inovasi
+            dalam satu ruang digital.
+          </p>
+
+          <a href="#about" class="button">
+            Jelajahi Website
+          </a>
+
+          <a href="#contact" class="button button-outline">
+            Hubungi Saya
+          </a>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-icon">RK</div>
+          <small>WELCOME TO</small>
+          <h2>RuangKarya</h2>
+          <p>
+            Explore ideas, create possibilities,
+            and build something meaningful.
+          </p>
+        </div>
+
       </div>
     </section>
 
     <section id="about">
       <div class="container">
-        <h2 class="section-title">About This Website</h2>
-        <p class="section-intro">
-          Halaman profil sederhana sebagai contoh penerapan website statis
-          dalam praktikum Cloud Computing.
-        </p>
-        <div class="about-card">
-          <h3>Perkenalan</h3>
+
+        <div class="section-heading">
+          <span>ABOUT US</span>
+          <h2>Mengenal RuangKarya</h2>
           <p>
-            Website ini menampilkan informasi profil singkat, navigasi
-            sederhana, dan bagian kontak. Seluruh tampilan dibuat dalam satu
-            file HTML sehingga mudah diunggah ke repository GitHub dan
-            di-deploy menggunakan Vercel.
+            Platform sederhana sebagai representasi
+            website statis dalam praktikum Cloud Computing.
           </p>
-          <div class="skills">
-            <span class="skill">HTML</span>
-            <span class="skill">CSS</span>
-            <span class="skill">Static Web</span>
-            <span class="skill">Vercel</span>
-            <span class="skill">GitHub</span>
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-card">
+            <h3>Tentang Website</h3>
+            <p>
+              RuangKarya merupakan website profil sederhana
+              yang dirancang dengan tampilan modern dan
+              responsif. Website ini dibuat menggunakan
+              HTML dan CSS serta dipublikasikan melalui
+              layanan cloud hosting Vercel.
+            </p>
           </div>
+
+          <div class="about-card">
+            <h3>Teknologi yang Digunakan</h3>
+            <p>
+              Pengembangan website memanfaatkan teknologi
+              web dasar serta integrasi GitHub untuk
+              pengelolaan kode dan pembaruan website.
+            </p>
+
+            <div class="tags">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>GitHub</span>
+              <span>Vercel</span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
     <section class="contact" id="contact">
       <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <p>Terima kasih telah mengunjungi website praktikum saya.</p>
-        <a class="button" href="mailto:example@email.com">Kirim Email</a>
+        <span class="badge">GET IN TOUCH</span>
+
+        <h2>Mari Terhubung.</h2>
+
+        <p>
+          Terima kasih telah mengunjungi RuangKarya.
+          Semoga website ini memberikan pengalaman
+          digital yang menarik.
+        </p>
+
+        <a href="mailto:example@email.com" class="button">
+          Kirim Email
+        </a>
       </div>
     </section>
+
   </main>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2026 My Profile. Dibuat untuk Praktikum Cloud Computing.</p>
-    </div>
+    <p>
+      &copy; 2026 RuangKarya. Praktikum Cloud Computing.
+    </p>
   </footer>
+
 </body>
 </html>
